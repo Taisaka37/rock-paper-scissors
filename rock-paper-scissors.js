@@ -36,4 +36,4 @@ game();
 game();
 game();
 game();
-console.log(`Final score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`)
+console.log(`Final score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`) //testing new branch
