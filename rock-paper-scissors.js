@@ -1,16 +1,15 @@
-function game() {
+const result = document.querySelector('.result')
+const score = document.querySelector('.score')
+const buttons = document.querySelectorAll('.button');
+let playerScore = 0;
+let computerScore = 0;
 const availableChoices = ["Rock", "Paper", "Scissors"];
+
 function getComputerChoice() {
   return availableChoices[Math.floor(Math.random() * availableChoices.length)] //Generates random choice for computer
 } ;
-let playerPrompt = prompt("Rock, paper or scissors? "); //Asks player for a choice
-const playerSelection = playerPrompt.charAt(0).toUpperCase() + playerPrompt.slice(1).toLowerCase(); //Capitalizes player's choice
-const computerSelection = getComputerChoice();
-
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
-    playerScore++;
-    computerScore++;
     return `It's a tie, both users chose ${playerSelection}`; //if both choices identical = tie
   }
   else if ( // Win conditions
@@ -24,16 +23,28 @@ function playRound(playerSelection, computerSelection) {
     { // If none of the win conditions = you lose
       computerScore++;
       return `You lose! ${computerSelection} beats ${playerSelection}`
-    }
+    }}
 
+function checkWinner() {
+  if (playerScore > computerScore) {
+    score.textContent = `You won the bo7!`
+  }
+  else {
+    score.textContent = 'You lost the bo7!'
+  }
+  playerScore = 0;
+  computerScore = 0;
 }
 
-console.log(playRound(playerSelection, computerSelection));}
-let playerScore = 0;
-let computerScore = 0;
-game();
-game();
-game();
-game();
-game();
-console.log(`Final score:\nPlayer: ${playerScore}\nComputer: ${computerScore}`) //testing new branch
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const computerSelection = getComputerChoice();
+    const playerSelection = button.textContent;
+    result.textContent = playRound(playerSelection, computerSelection);
+    score.textContent = `${playerScore} - ${computerScore}`
+    if (playerScore === 5 || computerScore === 5) {
+      checkWinner();
+    }
+  });
+});
+
